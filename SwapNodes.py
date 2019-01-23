@@ -17,20 +17,21 @@ class Node:
         return "Node:- {} Right - {} Left {}".format(self.value, self.right, self.left)
 
 def inorder(roots):
-    if type(roots) != Node or type(roots)!= None:
-        for root in roots:
-            if root:
-                inorder(root.left)
-                print(root.value)
-                inorder(root.right)
-    else:
-        if roots:
-                inorder(roots.left)
-                print(roots.value)
-                inorder(roots.right)
+    # if type(roots) != Node or type(roots)!= None:
+    #     for root in roots:
+    #         if root:
+    #             inorder(root.left)
+    #             print(root.value)
+    #             inorder(root.right)
+    # else:
+    if roots:
+        inorder(roots.left)
+        print(roots.value)
+        inorder(roots.right)
 
 
-# def inorder_traversal():
+# def inorder_traversal(root):
+
 
 
 #
@@ -52,24 +53,26 @@ def inorder(roots):
 
 def swapNodes(indexes, queries):
     # insert(Node(1), indexes)
-    rootList = [Node(1)]
-    tree = []
+    initial_root = Node(1)
+    tree = [initial_root]
     for i in range(0, len(indexes)):
-        root = rootList.pop(0)
+        # root = rootList.po
+        root = tree.pop(0)
         left = indexes[i][0]
         right = indexes[i][1]
         if left != -1:
-            root.left = left
-            rootList.append(Node(left))
+            root.left = Node(left)
+            tree.append(root.left)
 
         if right != -1:
-            root.right = right
-            rootList.append(Node(right))
+            root.right = Node(right)
+            tree.append(root.right)
 
-
-        tree.append(root)
+    # inorder(initial_root)
+        
+    
     # inorder(tree)#
-    print(tree)
+    # print(tree)
         
            
 
