@@ -1,8 +1,10 @@
 #!/bin/python3
 # http://openbookproject.net/thinkcs/python/english3e/trees.html
 # 
+
 import os
 import sys
+sys.setrecursionlimit(15000)
 
 tree = []
 
@@ -16,7 +18,16 @@ class Node:
     def __repr__(self):
         return "Node:- {} Right - {} Left {}".format(self.value, self.right, self.left)
 
-def inorder(roots):
+def swap(root, l, q):
+    if l % q == 0:
+        root.left, root.right = root.right, root.left
+    if root.left:
+        swap(root.left, l + 1, q)
+    if root.right:
+        swap(root.right, l + 1, q)
+
+
+def inorder(roots, inter_result):
     # if type(roots) != Node or type(roots)!= None:
     #     for root in roots:
     #         if root:
@@ -25,9 +36,9 @@ def inorder(roots):
     #             inorder(root.right)
     # else:
     if roots:
-        inorder(roots.left)
-        print(roots.value)
-        inorder(roots.right)
+        inorder(roots.left, inter_result)
+        inter_result.append(roots.value)
+        inorder(roots.right, inter_result)
 
 
 # def inorder_traversal(root):
@@ -67,9 +78,13 @@ def swapNodes(indexes, queries):
         if right != -1:
             root.right = Node(right)
             tree.append(root.right)
-
-    # inorder(initial_root)
-        
+    result = []
+    for query in queries:
+        inter_result = []
+        swap(initial_root, 1, query)
+        inorder(initial_root, inter_result)
+        result.append(inter_result)
+    return result
     
     # inorder(tree)#
     # print(tree)
@@ -108,4 +123,5 @@ if __name__ == '__main__':
     fptr.write('\n')
 
     fptr.close()
+
 
